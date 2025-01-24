@@ -1,0 +1,75 @@
+<% layout('layouts/boilerplate') -%>
+<%- include('../partials/navbar') %>
+<div class="row">
+    <div class="col-6 mx-auto">
+        <form action="/products" method="POST" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="productName">Name: </label>
+                <input type="text" class="form-control" name="name" id="productName" placeholder="Name of the Product" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please enter a Name.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="image">Image: </label>
+                <input type="text" class="form-control" name="image" id="image" placeholder="Image link of the Product" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please enter a link of image.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="price">Price: </label>
+                <input type="number" class="form-control" name="price" id="price" placeholder="Price of the Product" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please enter the price in number.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="description">Description: </label>
+                <textarea name="description" id="description" rows="5" cols="79" placeholder="Description of the Product" required></textarea>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please enter some description.
+                </div>
+            </div>
+            <button class="btn btn-sm btn-success" type="submit">Add</button>
+        </form>
+
+    </div>
+    
+</div>
+
+<script>
+
+    (() => {
+        'use strict'
+  
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+    
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        
+        form.classList.add('was-validated')
+    }, false)
+})
+}) ()
+</script>
+</body>
+</html>

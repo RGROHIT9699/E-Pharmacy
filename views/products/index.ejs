@@ -1,0 +1,39 @@
+<% layout('layouts/boilerplate') -%>
+<section class="container">
+  
+  <%- include('../partials/flash') %>
+  <section id="heading"> 
+  <h4 class="display-4"><i class="fab fa-shopify" style="margin-right: 20px;"></i>Shopping-Cart</h4>
+  </section>
+  <div class="row products">
+          <% for (let item of products) { %>
+          <div class = "col-lg-3 mx-auto">
+            <div class="card shadow mx-auto" style="width: 18rem;">
+                <img src="<%=item.image%>" class="card-img-top" alt="...">
+                <span class="badge rounded-pill bg-light text-dark w-25 position-absolute translate-middle-y" style="top:41%;left:5%"><%=item.avgRating%>  &star; | <%=product.reviews.length%></span>
+                <div class="card-body">
+                  <h5 class="card-title d-flex justify-content-between align-items-center">
+                    <span><%= item.name %></span> 
+                    <span class="btn like-btn" product-id="<%=item._id%>">
+                      <% if(currentUser && currentUser.wishList.includes(item._id)){ %>
+                         <i class="fas fa-heart"></i>
+                        <% } else{ %>
+                          <i class="far fa-heart"></i>
+                      <% } %>
+                    </span>
+                  </h5>
+                  <p class="card-text fw-light"><%=item.description%></p>
+                  <% if(item.reviews.length){ %>
+                    <p class="text-muted"><%=item.reviews.length%> Reviews</p>
+                  <%}else{%>
+                    <p class="text-muted">No Reviews</p>
+                  <% } %> 
+                  <h6 class="card-title"><span class="fw-lighter fs-6 text-decoration-line-through">Rs.<%= item.price*2 %></span> Rs.<%= item.price %> <span class="fw-light fs-6 text-warning">( 50 % OFF )</span> </h6>
+                  <a href="/products/<%=product._id%>" class="btn btn-sm show-btn">View Now</a>
+                 </div>
+                </div>
+              </div> 
+              <% } %>
+          </div>  
+</section>
+<script src="/Js/common.js"></script>

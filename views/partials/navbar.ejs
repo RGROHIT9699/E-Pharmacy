@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand bg-secondary fixed-top navbar-expand-lg navbar-dark" style="background-color: #0077b6;">
+  <div class="container">
+    <a class="navbar-brand" href="/products"><i class="fas fa-shopping-basket" style="margin-right: 10px;font-size: 1.7rem;"></i>Shopping Cart</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarTogglerDemo01"
+      aria-controls="navbarTogglerDemo01"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <ul class="navbar-nav me-auto mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">HealthCare Hub</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/products">Products</a>
+        </li>
+        <% if(currentUser && currentUser.role === 'admin') { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/product/new" tabindex="-1" aria-disabled="true">New</a>
+          </li>
+        <% } %>
+
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+      </ul>
+      <div class="d-flex" role="search">
+        <% if (!currentUser ) {%>
+        <a href="/signin" class="nav-link mx-2">Login</a>
+        <% } else { %>
+        <a href="#" class="nav-link mx-2">Hello, <%=currentUser.username%></a>
+        <a href="/user/cart" class="nav-link">
+          <i class="fas fa-duotone fa-light fa-cart-shopping fa-flip-horizontal" style="--fa-primary-color: #B197FC; --fa-secondary-color: #e6fc97;"></i>
+
+          <sup><span class="badge bg-danger"><%=currentUser.cart.length%></span></sup>
+        </a>
+        <a href="/signout" class="nav-link mx-2">Logout</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
