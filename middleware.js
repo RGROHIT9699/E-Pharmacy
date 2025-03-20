@@ -19,6 +19,10 @@ const validateReview = (req,res,next)=>{
 }
 
 const isLoggedIn = ((req,res,next)=>{
+
+    if (req.xhr && !req.isAuthenticated()) {
+        return res.status(401).json({msg:'Login First'})
+    }
     if(!req.isAuthenticated()){
         req.flash('error','please login first')
         return res.redirect('/signin')
@@ -40,6 +44,10 @@ const isSeller = (req,res,next)=>{
 const isProductAuthor = async(req,res,next)=> {
     let {id} = req.params;
     let product = await Product.findById(id);
+
+    console.log(product.author);
+    console.log(req.user._id);
+
     if(!product.author.equals(req.user._id)) {
         req.flash('error','Check Again! Not your product');
         return res.redirect('/products');

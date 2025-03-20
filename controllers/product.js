@@ -69,10 +69,6 @@ const updateProduct = async(req,res)=>{
 }
 
 const deleteProduct = async(req,res)=>{
-    // const product = await Product.findById(id);
-    // for (let i of product.reviews) {
-    //     await i.findByIdAndDelete(i);
-    // }
     try {
         const {id} = req.params;
         await Product.findByIdAndDelete(id);

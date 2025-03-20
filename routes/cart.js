@@ -21,4 +21,19 @@ router.post('/user/:productId/add',isLoggedIn, async(req,res)=>{
     res.redirect('/user/cart');
 })
 
+router.post('/remove/:id',async(req,res)=>{
+    let {id} = req.params;
+    let product = await Product.findById(id);
+    let user = await User.findById(req.user._id);
+
+    const productIndex = user.cart.findById(item => item._id.toString() === product._id.toString());
+    if(productIndex > -1){
+        user.cart.splice(productIndex,1);
+
+    }
+    await user.save();
+    res.redirect('/user/cart');
+
+})
+
 module.exports = router;

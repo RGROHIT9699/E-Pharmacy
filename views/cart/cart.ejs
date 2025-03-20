@@ -10,7 +10,7 @@
                 <div class="card mx-auto mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                       <div class="col-4">
-                        <img src="<%=item.img%>" class="img-fluid rounded-start" alt="...">
+                        <img src="<%=item.image%>" class="img-fluid rounded-start" alt="...">
                       </div>
                       <div class="col-8">
                         <div class="card-body">
@@ -34,7 +34,7 @@
                 <li class="list-group-item fw-bold">Total Amount : $ <%=totalAmount%></li>
             </ul>
 
-            <form action="/checkout" method="POST">
+            <form action="/payment" method="POST">
               <input type="hidden" name="amount" value="<%=totalAmount%>"/>
               <input type="hidden" name="phone" value="9999999999" />
               <input type="hidden" name="service_provider" 

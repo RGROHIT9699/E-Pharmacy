@@ -3,12 +3,12 @@ const passportLocalMongoose = require('passport-local-mongoose')
 const userKaSchema = new mongoose.Schema({
     email:{
         type:String,
-        required:true,
         trim:true,
+        required:true,
     },
     role:{
         type:String,
-        require: true
+        require: true,
     },
     wishList:[{
         type:mongoose.Schema.Types.ObjectId,

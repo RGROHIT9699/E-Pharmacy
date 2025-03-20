@@ -2,14 +2,13 @@ require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const nodemailer = require('nodemailer');
 
-
 const express = require('express')
 const app = express()
 const path = require('path')
+const ejsMate = require('ejs-mate');
 const methodoverride = require('method-override')
 const mongoose = require('mongoose');
 // const seedDB = require('./seed')
-const ejsmate = require('ejs-mate');
 const flash = require('connect-flash')
 const session = require('express-session') 
 const passport = require('passport')
@@ -22,9 +21,9 @@ const productApi = require('./routes/api/productapi')
 const productKeRoutes = require('./routes/product') 
 const reviewKeRoutes = require('./routes/review')
 const authKeRoutes = require('./routes/auth')
+// const cartRoutes = require('./routes/cart')
 const cartRoutes = require('./routes/cart')
-const cartRoutes = require('./routes/cart')
-const checkRoutes = require('./routes/checkout')
+const checkRoutes = require('./routes/payment')
 
 mongoose.connect('mongodb://127.0.0.1:27017/medicine')
 .then(()=>{
@@ -46,7 +45,7 @@ let configSession = {
     }
 }
 
-app.engine('ejs',ejsmate);
+app.engine('ejs',ejsMate);
 app.set('view engine','ejs') 
 app.set('views',path.join(__dirname,'views'))
 app.use(express.static(path.join(__dirname,'public')))
@@ -68,8 +67,13 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.get('/',(req,res)=>{
+    res.locals.currentUser = req.user;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
     res.render('home');
 })
+
+passport.use(new LocalStrategy(User.authenticate()));
 
 app.use(productKeRoutes) 
 app.use(reviewKeRoutes) 

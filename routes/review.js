@@ -13,8 +13,6 @@ router.post('/products/:id/review',  validateReview, async (req,res)=>{
         const addProduct = await Product.findById(id);
         const addReview = new Review({rating,comment});
         
-        const newAvgRating = ((addProduct.avgRating * addProduct.reviews.length) + parseInt(rating)) / (addProduct.reviews.length + 1);
-        addProduct.avgRating = parseFloat(newAvgRating.toFixed(1));
         addProduct.reviews.push(addReview);
 
         await addReview.save();

@@ -1,5 +1,5 @@
 (()=>{
-    
+    'use strict'
     const forms = document.querySelectorAll('.needs-validation')
     
     Array.from(forms).forEach(form=>{

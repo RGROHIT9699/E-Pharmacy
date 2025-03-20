@@ -77,7 +77,7 @@
         <p class="processing-indicator">Please wait, your payment is being processed!</p>
         <p>Thank you, <%= name %>. Your ticket is being processed!</p>
         <p class="price-info">Price: ₹<%= price %></p>
-        <form id="stripe-form" action="/checkout" method="POST">
+        <form id="stripe-form" action="/payment" method="POST">
             <input type="hidden" name="productId" value="<%= productId %>">
             <input type="hidden" name="name" value="<%= name %>">
             <input type="hidden" name="price" value="<%= price %>">

@@ -8,16 +8,16 @@ async function likeButton(productId,btn) {
             headers:{'X-Requested-With':'XMLHttpRequest'},
         });
 
-        if(btn.children[0].classList.contains('fas')) {
-            btn.children[0].classList.remove('fas');
-            btn.children[0].classList.add('far');
+        if(btn.children[0].classList.contains("fas")) {
+            btn.children[0].classList.remove("fas");
+            btn.children[0].classList.add("far");
         } else {
-            btn.children[0].classList.remove('far');
-            btn.children[0].classList.add('fas');
+            btn.children[0].classList.remove("far");
+            btn.children[0].classList.add("fas");
         }
     }
     catch (e) {
-        window.location.replace('/login');
+        window.location.replace('/signin');
     }
 }
 

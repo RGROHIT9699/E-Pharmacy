@@ -24,15 +24,15 @@ const productKaSchema = new mongoose.Schema({
         type: Number,
         default:0
     },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
     reviews:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Review'   
     }
-    ],
-    author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-    }
+    ]
 });
 
 productKaSchema.post('findOneAndDelete',async function(product){

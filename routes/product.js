@@ -6,7 +6,27 @@ const {validateProduct,isLoggedIn,isSeller,isProductAuthor} = require('../middle
 const {showAllProducts,productForm,createProduct,showProduct,editProductForm,updateProduct,deleteProduct} = require('../controllers/product');
 
 
-router.get('/products',isLoggedIn,showAllProducts)
+router.get('/products',showAllProducts);
+
+router.get('/showBook/:id',async(req,res)=>{
+    try{
+        const {id} = req.params;
+        const product = await Product.findById(id);
+        const price = product.price;
+        if(!product) {
+            return res.status(404).send("No Product Found");
+
+        }
+        res.render('products/booked',{
+            productId: product._id,
+            name : product.name,
+            price: product.price,            
+        });
+    } catch(e){
+            console.error(e);
+            res.status(500).send("Server Error");
+    }
+});
 
 router.get('/product/new',isLoggedIn, isSeller,productForm)
 

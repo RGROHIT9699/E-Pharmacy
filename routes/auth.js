@@ -34,7 +34,7 @@ router.post('/signin',
         failureRedirect:'/signin',
         failureMessage:true
     }),
-    function (req,res){
+    (req,res)=>{
     req.flash('success',`Welcome Back ${req.user.username}`)
     res.redirect(`/products`)
 }) 
