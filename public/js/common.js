@@ -23,7 +23,7 @@ async function likeButton(productId,btn) {
 
 for(let btn of likeBtn) {
     btn.addEventListener('click',()=>{
-        let productId = btn.dataset.productId;
+        let productId = btn.getAttribute('product-id');
         likeButton(productId,btn);
     })
 }

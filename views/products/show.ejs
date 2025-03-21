@@ -1,71 +1,84 @@
 <% layout('layouts/boilerplate') -%>
-<%- include('../partials/flash') %>
+<section class="container">
 
-<div class="row">
-    <div class="col-lg-6 mt-3">
-        <div class="card shadow mx-auto" style="width: 20rem;">
-            <img src="<%=prod.image%>" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title"><%=prod.name%></h5>
-                <h5 class="card-title"><%=prod.price%></h5>
-                <p class="card-text"><%=prod.description%></p>
+    <%- include('../partials/flash') %>
+    
+    <div class="row">
+        <div class="col-lg-6 mt-3">
+            <div class="card shadow mx-auto" style="width: 20rem;">
+                <img src="<%=prod.image%>" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"><%=prod.name%></h5>
+                    <h5 class="card-title"><i class="fa-solid fa-indian-rupee-sign"></i> <%=prod.price%></h5>
+                    <p class="card-text"><%=prod.description%></p>
+                    <form action="/user/<%=prod._id%>/add" class="d-inline-block" method="POST">
+                        <button class="btn btn-sm btn-secondary">Add To Cart</button> 
+                    </form>
+                    <form action="/products/<%= prod._id%>/buy" method="POST">
+                        <button class="btn btn-success btn-sm">Buy</button>
+                    </form>
+                    <!-- <a href="/showBook/<%=prod._id %>" class="btn btn-sm btn-primary">Buy Product</a> -->
+                    <% if(currentUser && currentUser.role === 'admin') { %>
+                        <a href="/products/<%=prod._id%>/edit" class="btn btn-sm btn-light">Edit</a>
+                        <form class="d-inline-block" action="/products/<%=prod._id%>?_method=DELETE" method="POST">
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 reviews-section mx-auto my-2">
+            <h2 class="display-6">Leave a Review</h2>
+            <form action="/products/<%=prod._id%>/review" method="POST">
+                <div>
+                    <fieldset class="starability-basic">
+                        <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+                        <input type="radio" id="first-rate1" name="rating" value="1" />
+                        <label for="first-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="first-rate2" name="rating" value="2" />
+                        <label for="first-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="first-rate3" name="rating" value="3" />
+                        <label for="first-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="first-rate4" name="rating" value="4" />
+                        <label for="first-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="first-rate5" name="rating" value="5" />
+                        <label for="first-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="feedback">Comment: </label>
+                    <textarea class="form-control" row="3" id="feedback" name="comment"></textarea>
+                </div>
+                <button class="btn btn-sm btn-success"> Add </button>
+            </form>
+            <div class="my-3">
                 
-                <% if(currentUser && currentUser.role === 'admin') { %>
-                    <a href="/products/<%=prod._id%>/edit" class="btn btn-sm btn-light">Edit</a>
+                <% const userReviews = prod.reviews.filter(my => my.user && my.user.equals(currentUser._id)); %>
+                <% const otherReviews = prod.reviews.filter(oth => !oth.user || !oth.user.equals(currentUser._id)); %>                
+
+                <% for (let rev of userReviews) { %>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <p class="card-title mx-2"><%= rev.createdAt.toDateString() %></p>
+                            <p class="starability-result" data-rating="<%= rev.rating %>">Rated: <%= rev.rating %> stars</p>
+                            <p class="card-text"><%= rev.comment %></p>
+                            <form action="/products/<%= prod._id %>/rev/<%= rev._id %>?_method=DELETE" method="POST">
+                                <button class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    </div>
                 <% } %>
 
-                <form action="/user/<%=prod._id%>/add" class="d-inline-block" method="POST">
-                    <button class="btn btn-sm btn-secondary">Add To Cart</button> 
-                </form>
-                
-                <a href="/showBook/<%=prod._id %>" class="btn btn-sm btn-primary">Buy Product</a>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <h2 class="display-6">Leave a Review</h2>
-        <form action="/products/<%=prod._id%>/review" method="POST">
-            <div>
-                <fieldset class="starability-basic">
-                    <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
-                    <input type="radio" id="first-rate1" name="rating" value="1" />
-                    <label for="first-rate1" title="Terrible">1 star</label>
-                    <input type="radio" id="first-rate2" name="rating" value="2" />
-                    <label for="first-rate2" title="Not good">2 stars</label>
-                    <input type="radio" id="first-rate3" name="rating" value="3" />
-                    <label for="first-rate3" title="Average">3 stars</label>
-                    <input type="radio" id="first-rate4" name="rating" value="4" />
-                    <label for="first-rate4" title="Very good">4 stars</label>
-                    <input type="radio" id="first-rate5" name="rating" value="5" />
-                    <label for="first-rate5" title="Amazing">5 stars</label>
-                </fieldset>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="feedback">Comment: </label>
-                <textarea class="form-control" row="3" id="feedback" name="comment"></textarea>
-            </div>
-            <button class="btn btn-sm btn-success"> Add </button>
-        </form>
-
-        <div class="my-3">
-            <% for(let i of prod.reviews) { %>
-
-                <div class="card mt-3">
-                    <h3>Rating</h3>
-                    <p class="starability-result mx-3 mt-2" data-rating="<%=i.rating%>">
-                        Rating: <%=i.rating%> stars
-                    </p>
-                    <div class="card-body">
-                        <p class="card-text">Comment: <%=i.comment %></p>
+                <% for(let i of otherReviews) { %>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <p class="card-title mx-2"><%= i.createdAt.toDateString() %></p>
+                            <p class="starability-result" data-rating="<%= i.rating %>">Rated: <%= i.rating %> stars</p>
+                            <p class="card-text"><%= i.comment %></p>
+                        </div>
                     </div>
-                    <p class="card-title mx-3">
-                        <% if(i.createdAt) { %>
-                            <%=i.createdAt.toDateString()%>
-                        <% } %>
-                    </p>
-                </div>
-            <% } %>
+                <% } %>
+            </div>
         </div>
-    </div>
-</div>
+    </div>    
+</section>

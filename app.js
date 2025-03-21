@@ -1,7 +1,6 @@
-require('dotenv').config();
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const nodemailer = require('nodemailer');
-
+if(process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 const express = require('express')
 const app = express()
 const path = require('path')
@@ -15,15 +14,15 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local');
 const User = require('./models/User')
 
-const productApi = require('./routes/api/productapi')
-
 
 const productKeRoutes = require('./routes/product') 
 const reviewKeRoutes = require('./routes/review')
 const authKeRoutes = require('./routes/auth')
-// const cartRoutes = require('./routes/cart')
 const cartRoutes = require('./routes/cart')
-const checkRoutes = require('./routes/payment')
+const productApi = require('./routes/api/productapi');
+const paymentRoutes = require('./routes/payment');
+const orderRoutes = require('./routes/orders');
+const productOwner = require('./routes/productOwner');
 
 mongoose.connect('mongodb://127.0.0.1:27017/medicine')
 .then(()=>{
@@ -34,8 +33,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/medicine')
     console.log(err);   
 })
 
+let secret = process.env.SECRET || 'weneedabettersecretkey';
 let configSession = {
-    secret:'pharmacy',
+    name:'pharmacy',
+    secret:secret,
     resave:false,
     saveUninitialized:true,
     cookie: {
@@ -51,6 +52,7 @@ app.set('views',path.join(__dirname,'views'))
 app.use(express.static(path.join(__dirname,'public')))
 app.use(express.urlencoded({extended:true}))
 app.use(methodoverride('_method'))
+
 app.use(session(configSession))
 app.use(flash())
 
@@ -80,15 +82,14 @@ app.use(reviewKeRoutes)
 app.use(authKeRoutes) 
 app.use(cartRoutes);
 app.use(productApi)
-app.use(checkRoutes)
+app.use(paymentRoutes);
+app.use(orderRoutes); 
+app.use(productOwner);
 
 
 // yaha seed(extra) data hai
 // console.log(seedDB());
 
-passport.use(new LocalStrategy(User.authenticate()))
-
- 
 
 app.listen(8080,()=>{
     console.log("Server Connected");

@@ -8,6 +8,9 @@ const reviewKaSchema = new mongoose.Schema({
     comment:{
         type:String,
         trim:true
+    },user: {
+        type:mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }
 },{timestamps:true})
  

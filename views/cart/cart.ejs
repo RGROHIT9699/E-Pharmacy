@@ -4,49 +4,38 @@
 <section class="container">
   <h1 class="display-6">My Cart</h1>
     <div class="row">
-        <div class="col-lg-8">
-            
+        <div class="col-lg-8">  
             <% for(let item of user.cart){ %>
-                <div class="card mx-auto mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                      <div class="col-4">
-                        <img src="<%=item.image%>" class="img-fluid rounded-start" alt="...">
-                      </div>
-                      <div class="col-8">
-                        <div class="card-body">
-                          <h5 class="card-title"><%=item.name%></h5>
-                          <p class="card-text"><%=item.desc%></p>
-                          <p class="card-text"><%=item.price%></p>
-                        </div>
-                      </div>
-                    </div>
-                    <form action="/remove/<%=item._id%>" method="POST">
-                      <button class="btn btn-danger">Remove</button>
-                    </form>
+              <div class="card mx-auto mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                  <div class="col-4">
+                    <img src="<%=item.image%>" class="img-fluid rounded-start" alt="...">
                   </div>
+                  <div class="col-8">
+                    <div class="card-body">
+                      <h5 class="card-title"><%=item.name%></h5>
+                      <p class="card-text"><%=item.desc%></p>
+                      <form action="/user/<%=item._id%>/remove" method="POST">
+                        <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
             <%} %> 
         </div>
-        <div class="col-lg-4">
+        <% if (user.cart.length>0) { %>
+          <div class="col-lg-4">
             <ul class="list-group">
-                <% for(let item of user.cart) {%>
-                    <li class="list-group-item"><span class="fw-bold"><%=item.name%> - </span>$ <%=item.price%> <span></span></li>
-                <% } %> 
-                <li class="list-group-item fw-bold">Total Amount : $ <%=totalAmount%></li>
+              <% for (let item of user.cart) {%>
+                <li class="list-group-item"><span class="fw-bold"><%=item.name%> - </span><i class="fa-solid fa-indian-rupee-sign"></i><%=item.price%></li>
+              <% } %>
+              <li class="list-group-item fw-bold">Total Amount : <i class="fa-solid fa-indian-rupee-sign"></i> <%=totalAmount%></li>
             </ul>
-
-            <form action="/payment" method="POST">
-              <input type="hidden" name="amount" value="<%=totalAmount%>"/>
-              <input type="hidden" name="phone" value="9999999999" />
-              <input type="hidden" name="service_provider" 
-               value="payu_paisa"/>
-              <input type="hidden" class="product" name="productinfo" 
-               value="<%=productInfo%>"/>
-               
-               <button type="submit" class="btn btn-sm btn-success my-3" >Checkout</button>
-              </form>
-
-        </div>
-    </div>
-
-   
+            <form action="/user/checkout" method="POST">
+              <button type="submit" class="btn btn-sm btn-success my-3">Checkout</button>
+            </form>
+          </div>
+        <%}%>
+    </div> 
 </section>

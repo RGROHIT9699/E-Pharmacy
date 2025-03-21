@@ -1,26 +1,46 @@
 <% layout('layouts/boilerplate') -%>
 
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: url('https://i.ibb.co/y85GSyN/Pharmacy-55.jpg') no-repeat center center/cover;
+        background-attachment: fixed;
+        min-height: 100vh;
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.95); /* Light overlay for readability */
+        border-radius: 10px;
+    }
+
+    .signin-text a {
+        color: #1565c0; /* Pharmacy blue */
+    }
+</style>
+
 <div class="row">
     <div class="col-md-5 mx-auto">
         <%- include('../partials/flash') %>
         <div class="card p-3 shadow-sm m-2">
-    <h1 class="text-center">Sign In</h1>
-    <p class="text-center">Welcome Back!</p>
-    <form action="/signin" method="POST">
-        <div class="mb-3">
-            <label for="username" class="form-label">Username: </label>
-            <input type="text" class="form-control" name="username" id="username"
-            placeholder="Enter your Username" required>
+            <h1 class="text-center">Sign In</h1>
+            <p class="text-center">Welcome Back!</p>
+            <form action="/signin" method="POST">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username: </label>
+                    <input type="text" class="form-control" name="username" id="username"
+                    placeholder="Enter your Username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password: </label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">Sign In</button>
+                </div>
+            </form>
+            <p class="signin-text text-center">Don't have an account? <a href="/register">Sign Up</a></p>
         </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password: </label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="Create_a_password" required>
-        </div>
-        <div class="d-grid">
-            <button type="submit" class="btn btn-custom btn-lg">Sign In</button>
-        </div>
-    </form>
-    <p class="signin-text text-center">Don't have an account? <a href="/register">Sign Up</a></p>
-</div>
-</div>
+    </div>
 </div>

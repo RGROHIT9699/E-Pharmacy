@@ -10,7 +10,7 @@ router.post('/product/:productId/like', isLoggedIn ,async(req, res)=>{
     const option = isLiked? '$pull' : '$addToSet';
 
     req.user = await User.findByIdAndUpdate(req.user._id,{[option]:{wishList:productId}},{new:true})
-    res.send('Done 👍');
+    res.send('Done ');
 })
 
 module.exports = router;

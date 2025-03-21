@@ -1,0 +1,263 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="main-content">
+    <div class="container">
+        <h1 class="heading">Your Products</h1>
+        <% if (products.length > 0) { %>
+            <div class="table-container">
+                <table class="product-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% products.forEach(product => { %>
+                            <tr>
+                                <td><img src="<%= product.img %>" class="product-image"></td>
+                                <td><%= product.name %></td>
+                                <td><i class="fa-solid fa-indian-rupee-sign"></i> <%= product.price %></td>
+                                <td class="actions">
+                                    <a href="/products/<%= product._id %>/edit" class="btn btn-edit">Edit</a>
+                                    <form action="/products/<%= product._id %>?_method=DELETE" method="POST" style="display: inline;">
+                                        <button type="submit" class="btn btn-delete">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        <% } else { %>
+            <p class="no-products">You have not added any products yet.</p>
+        <% } %>
+    </div>
+</div>
+
+<style>
+    /* General Page Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e3f2fd; /* Light blue background */
+    color: #2e7d32; /* Dark green */
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #1565c0; /* Pharmacy Blue */
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    margin: 0 10px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #a1d6e7; /* Light blue hover */
+}
+
+/* Footer */
+footer {
+    background-color: #1565c0; /* Same as navbar */
+    color: white;
+    text-align: center;
+    padding: 15px 10px;
+    font-size: 0.9rem;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+}
+
+footer a {
+    text-decoration: none;
+    color: #a1d6e7;
+    font-weight: 500;
+}
+
+footer a:hover {
+    color: white;
+}
+
+/* Main Content */
+.main-content {
+    padding: 20px;
+    min-height: calc(100vh - 150px); /* Ensures footer sticks to the bottom */
+}
+
+/* Heading */
+.heading {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #2e7d32; /* Dark green */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Table Container */
+.table-container {
+    margin-top: 20px;
+    border: 2px solid #c8e6c9; /* Light green */
+    border-radius: 10px;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+/* Product Table */
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    table-layout: auto;
+}
+
+.product-table th, 
+.product-table td {
+    padding: 15px 20px;
+    border-bottom: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+.product-table th {
+    background-color: #2e7d32; /* Green header */
+    color: white;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.product-table tr:hover {
+    background-color: #c8e6c9; /* Light green hover */
+    transition: background-color 0.3s ease;
+}
+
+.product-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Product Image */
+.product-image {
+    width: 80px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.product-image:hover {
+    transform: scale(1.1); /* Zoom effect */
+}
+
+/* No Products Message */
+.no-products {
+    text-align: center;
+    font-size: 1.4rem;
+    color: #388e3c; /* Medium green */
+    margin-top: 40px;
+    font-style: italic;
+}
+
+/* Actions (Buttons) */
+.actions {
+    gap: 15px;
+}
+
+/* Buttons */
+.btn {
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Edit Button */
+.btn-edit {
+    background-color: #43a047; /* Dark green */
+    color: white;
+    border: 2px solid #388e3c;
+}
+
+.btn-edit:hover {
+    background-color: #388e3c;
+    border-color: #2e7d32;
+    color: #e8f5e9;
+}
+
+/* Delete Button */
+.btn-delete {
+    background-color: #e53935; /* Red */
+    color: white;
+    border: 2px solid #d32f2f;
+}
+
+.btn-delete:hover {
+    background-color: #d32f2f;
+    border-color: #b71c1c;
+    color: #fdd;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-table th, 
+    .product-table td {
+        font-size: 0.9rem;
+    }
+
+    .heading {
+        font-size: 2rem;
+    }
+
+    .btn {
+        font-size: 0.85rem;
+        padding: 7px 12px;
+    }
+
+    .product-image {
+        width: 60px;
+    }
+
+    .actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-table th, 
+    .product-table td {
+        padding: 10px;
+    }
+
+    .heading {
+        font-size: 1.8rem;
+    }
+
+    .btn {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+    }
+}
+
+</style>

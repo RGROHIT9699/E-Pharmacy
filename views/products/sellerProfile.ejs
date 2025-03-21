@@ -1,0 +1,135 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="seller-profile-page">
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+        <h1>Welcome, Seller!</h1>
+        <p class="animated-text">
+            Manage your products and orders easily from here. Select an option below to get started:
+        </p>
+    </div>
+
+    <!-- Navigation Options -->
+    <div class="actions-section">
+        <a href="/seller/products" class="action-card">
+            <div class="card-content">
+                <h2>My Products</h2>
+                <p>View, edit, and manage the products you have added to your store.</p>
+            </div>
+        </a>
+
+        <a href="/user/orders" class="action-card">
+            <div class="card-content">
+                <h2>My Orders</h2>
+                <p>Check the details of orders placed by you.</p>
+            </div>
+        </a>
+    </div>
+</div>
+
+
+<style>
+    /* General Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e3f2fd; /* Light blue */
+    color: #2e7d32; /* Dark green */
+}
+
+/* Seller Profile Page */
+.seller-profile-page {
+    padding: 30px 20px;
+    text-align: center;
+}
+
+/* Welcome Section */
+.welcome-section {
+    margin-bottom: 40px;
+}
+
+.welcome-section h1 {
+    font-size: 2.5rem;
+    color: #1565c0; /* Pharmacy Blue */
+    font-weight: 700;
+}
+
+/* Animated Text */
+.animated-text {
+    font-size: 1.2rem;
+    color: #388e3c; /* Medium green */
+    margin-top: 10px;
+    opacity: 0; /* Initially hidden */
+    transform: translateY(20px); /* Move text slightly down */
+    animation: fadeInUp 1.2s ease-out forwards; /* Animation */
+}
+
+/* Animation Keyframes */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Actions Section */
+.actions-section {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Action Cards */
+.action-card {
+    text-decoration: none;
+    background-color: #ffffff;
+    border: 2px solid #c8e6c9; /* Light Green */
+    border-radius: 10px;
+    width: 300px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border-color: #1565c0; /* Pharmacy Blue */
+}
+
+.card-content h2 {
+    font-size: 1.8rem;
+    color: #2e7d32; /* Dark Green */
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.card-content p {
+    font-size: 1rem;
+    color: #388e3c; /* Medium green */
+    line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .action-card {
+        width: 100%;
+        max-width: 90%;
+    }
+
+    .welcome-section h1 {
+        font-size: 2rem;
+    }
+
+    .welcome-section p {
+        font-size: 1rem;
+    }
+}
+</style>
+

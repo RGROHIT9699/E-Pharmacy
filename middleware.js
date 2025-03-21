@@ -43,12 +43,12 @@ const isSeller = (req,res,next)=>{
 
 const isProductAuthor = async(req,res,next)=> {
     let {id} = req.params;
-    let product = await Product.findById(id);
+    const product = await Product.findById(id);
 
-    console.log(product.author);
-    console.log(req.user._id);
+    // console.log(product.author);
+    // console.log(req.user._id);
 
-    if(!product.author.equals(req.user._id)) {
+    if(!product.author|| !product.author.equals(req.user._id)) {
         req.flash('error','Check Again! Not your product');
         return res.redirect('/products');
     } 
