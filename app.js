@@ -7,12 +7,13 @@ const path = require('path')
 const ejsMate = require('ejs-mate');
 const methodoverride = require('method-override')
 const mongoose = require('mongoose');
-// const seedDB = require('./seed')
+const seedDB = require('./seed')
 const flash = require('connect-flash')
 const session = require('express-session') 
 const passport = require('passport')
 const LocalStrategy = require('passport-local');
 const User = require('./models/User')
+const MongoStore = require('connect-mongo');
 
 
 const productKeRoutes = require('./routes/product') 
@@ -24,7 +25,10 @@ const paymentRoutes = require('./routes/payment');
 const orderRoutes = require('./routes/orders');
 const productOwner = require('./routes/productOwner');
 
-mongoose.connect('mongodb://127.0.0.1:27017/medicine')
+// const dbURL = process.env.dbURL ||'mongodb://127.0.0.1:27017/medicine'; 
+const dbURL = process.env.dbURL ; 
+mongoose.set('strictQuery', true);
+mongoose.connect(dbURL)
 .then(()=>{
     console.log("Mera DB Sahi chal raha hai");
 })
@@ -34,7 +38,16 @@ mongoose.connect('mongodb://127.0.0.1:27017/medicine')
 })
 
 let secret = process.env.SECRET || 'weneedabettersecretkey';
+
+let store = MongoStore.create({
+    secret:secret,
+    mongoUrl:dbURL,
+    touchAfter:24*60*60
+})
+
+
 let configSession = {
+    store:store,
     name:'pharmacy',
     secret:secret,
     resave:false,

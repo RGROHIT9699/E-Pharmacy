@@ -4,34 +4,28 @@ const Product = require('./models/Product');
 
 const products = [
     {
-        name: "Iphone 16 pro",
-        image:"https://akm-img-a-in.tosshub.com/indiatoday/images/device/169649084415-pro-max-specs-1-800x800_one_to_one.jpg?VersionId=OysoHg8tJBJ1D.DvzKsc9eIrbL5xTibt",
-        price: 129990,
-        description: 'Phone ka baap',
+        name: "Protinex",
+        image:"https://m.media-amazon.com/images/I/81gBcDFLuQL.jpg",
+        price: 485,
+        description: 'Bext Protein Ever',
     },
     {
-        name:"MacBook Pro",
-        image:"https://i.ytimg.com/vi/6fHbgyQOSPc/maxresdefault.jpg",
-        price: 187990,
-        description: 'Development mai baap',   
+        name:"Liv 52",
+        image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVBPWYX-OLxlbJoFI2RAmrFX2fOBeIfhwK6A&s",
+        price: 187,
+        description: 'Lever Ki Tablet',   
     },
     {
-        name:"MacBook Pro",
-        image:"https://i.ytimg.com/vi/6fHbgyQOSPc/maxresdefault.jpg",
-        price: 187990,
-        description: 'Development mai baap',   
+        name:"Fast Relief",
+        image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS0tYBQajj7VJC0LEInktjS7Kl9tQo4X47ow&s",
+        price: 80,
+        description: 'Best Pain Relief Ointment',   
     },
     {
-        name:"Samsung S24 Ultra",
-        image:"https://www.celletronic.com/wp-content/uploads/2024/01/Samsung-Galaxy-S24-ULTRA-BLACK.jpg",
-        price: 129999,
-        description: 'Zoom ka baap',   
-    },
-    {
-        name:"Samsung Z Fold 6",
-        image:"https://i.gadgets360cdn.com/large/samsung_galaxy_z_fold_5_review_cameras_gadgets360_1695902127311.jpg?downsize=950:*",
-        price: 164999,
-        description: 'Fold Phone ka baap',   
+        name:"Zandu Pancharishtha",
+        image:"https://images.apollo247.in/pub/media/catalog/product/Z/A/ZAN0027_5-AUG23_1.jpg?tr=q-80,f-webp,w-400,dpr-6,c-at_max",
+        price: 165,
+        description: 'Best For Digestion',   
     },
 ]
 
